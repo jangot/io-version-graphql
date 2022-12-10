@@ -2,39 +2,16 @@ import { ApolloServer, BaseContext } from '@apollo/server';
 import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import pino, { Logger } from 'pino';
-import { AppConfiguration } from './configuration';
+import { loadSchemaSync } from '@graphql-tools/load';
+import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 
-const typeDefs = `#graphql
-    type Book {
-        title: String
-        author: String
-    }
-
-    type Query {
-        books: [Book]
-    }
-    `;
-
-const books = [
-    {
-        title: 'The Awakening',
-        author: 'Kate Chopin',
-    },
-    {
-        title: 'City of Glass',
-        author: 'Paul Auster',
-    },
-];
-
-const resolvers = {
-    Query: {
-        books: () => books,
-    },
-};
-
+import app from './Application';
+import { resolvers } from './resolvers';
 
 const server = new ApolloServer<AppContext>({
-    typeDefs,
+    typeDefs: loadSchemaSync("./scheme/*.graphql", {
+        loaders: [new GraphQLFileLoader()],
+      }),
     resolvers,
     plugins: [
         /* @ts-ignore */
@@ -44,21 +21,19 @@ const server = new ApolloServer<AppContext>({
 
 interface AppContext extends BaseContext {
     resId: string;
-    logger: Logger;
 }
 
 (async () => {
-    const logger = pino();
+    await app.init();
     const { url } = await startStandaloneServer(server, {
-        listen: { port: AppConfiguration.getConfig().port },
+        listen: { port: app.config.port },
         context: async (ctx): Promise<AppContext> => {
             return {
                 ...ctx,
                 resId: '12w-12w',
-                logger
             }
         }
     });
 
-    console.log(`🚀  Server ready at: ${url}`);
+    app.logger.info(`🚀  Server ready at: ${url}`);
 })();

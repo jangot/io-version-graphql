@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node ./src/index.ts",
+    "dev": "node-dev ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,12 +13,15 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^18.11.12",
+    "node-dev": "^7.4.3",
     "ts-node": "^10.9.1",
     "tslib": "^2.4.1",
     "typescript": "^4.9.4"
   },
   "dependencies": {
     "@apollo/server": "^4.2.2",
+    "@graphql-tools/graphql-file-loader": "^7.5.13",
+    "@graphql-tools/load": "^7.8.8",
     "apollo-server-core": "^3.11.1",
     "graphql": "^16.6.0",
     "pino": "^8.7.0"
