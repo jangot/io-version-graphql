@@ -1,15 +1,15 @@
-import { Environment } from './environment';
+import { EnvironmentEntitie } from './environment';
 import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { RuleKey } from './rule-key';
+import { RuleKeyEntitie } from './rule-key';
 
-@Entity()
+@Entity({ name: 'rule' })
 @Index(['key', 'value', 'environment'], { unique: true })
-export class Rule {
+export class RuleEntitie {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(() => RuleKey, (ruleKey) => ruleKey.rules, { nullable: false })
-    key: RuleKey;
+    @ManyToOne(() => RuleKeyEntitie, (ruleKey) => ruleKey.rules, { nullable: false })
+    key: RuleKeyEntitie;
 
     @Column()
     keyId: number;
@@ -17,8 +17,8 @@ export class Rule {
     @Column({ nullable: false })
     value: string;
 
-    @ManyToOne(() => Environment, (env) => env.rules, { nullable: false })
-    environment: Environment;
+    @ManyToOne(() => EnvironmentEntitie, (env) => env.rules, { nullable: false })
+    environment: EnvironmentEntitie;
 
     @Column()
     environmentId: number;

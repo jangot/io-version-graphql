@@ -1,10 +1,12 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, Index } from 'typeorm';
-import { Version } from './version';
+import { VersionEntitie } from './version';
 
-@Entity()
-export class Application {
+@Entity({
+    name: 'application'
+})
+export class ApplicationEntitie {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: string;
 
     @Column({ nullable: false })
     @Index({ unique: true })
@@ -13,6 +15,6 @@ export class Application {
     @Column({ default: true })
     isActive: boolean;
 
-    @OneToMany(() => Version, (version) => version.application)
-    versions: Version[];
+    @OneToMany(() => VersionEntitie, (version) => version.application)
+    versions: VersionEntitie[];
 }

@@ -1,3 +1,4 @@
+import { QueryApplications } from "./applications";
 
 const books = [
     {
@@ -13,5 +14,6 @@ const books = [
 export const resolvers = {
     Query: {
         books: () => books,
+        applications: QueryApplications
     },
 };

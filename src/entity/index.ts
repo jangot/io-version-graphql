@@ -1,15 +1,15 @@
-import { Application } from "./application";
-import { Deploy } from "./deploy";
-import { Environment } from "./environment";
-import { RuleKey } from "./rule-key";
-import { Rule } from "./rule";
-import { Version } from "./version";
+import { ApplicationEntitie } from "./application";
+import { DeployEntitie } from "./deploy";
+import { EnvironmentEntitie } from "./environment";
+import { RuleKeyEntitie } from "./rule-key";
+import { RuleEntitie } from "./rule";
+import { VersionEntitie } from "./version";
 
 export const entities = [
-    Application,
-    Deploy,
-    Environment,
-    RuleKey,
-    Rule,
-    Version
+    ApplicationEntitie,
+    DeployEntitie,
+    EnvironmentEntitie,
+    RuleKeyEntitie,
+    RuleEntitie,
+    VersionEntitie
 ];

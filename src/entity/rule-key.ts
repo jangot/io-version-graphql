@@ -1,17 +1,17 @@
 import { Column, Entity, Index, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Rule } from './rule';
+import { RuleEntitie } from './rule';
 
-@Entity()
+@Entity({ name: 'rule_key' })
 @Index(['name'])
-export class RuleKey {
+export class RuleKeyEntitie {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column({ nullable: false, unique: true })
     name: string;
 
-    @OneToMany(() => Rule, (rule) => rule.key)
-    rules: Rule[];
+    @OneToMany(() => RuleEntitie, (rule) => rule.key)
+    rules: RuleEntitie[];
 
     @Column({ nullable: false, default: 1 })
     specificity: number;

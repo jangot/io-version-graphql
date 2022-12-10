@@ -1,9 +1,9 @@
-import { Deploy } from './deploy';
-import { Rule } from './rule';
+import { DeployEntitie } from './deploy';
+import { RuleEntitie } from './rule';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
-export class Environment {
+@Entity({ name: 'environment' })
+export class EnvironmentEntitie {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -16,9 +16,9 @@ export class Environment {
     @Column({ nullable: false, default: 1 })
     orderIndex: number;
 
-    @OneToMany(() => Rule, (rule) => rule.environment)
-    rules: Rule[];
+    @OneToMany(() => RuleEntitie, (rule) => rule.environment)
+    rules: RuleEntitie[];
 
-    @OneToMany(() => Deploy, (deploy) => deploy.environment)
-    deploy: Deploy[];
+    @OneToMany(() => DeployEntitie, (deploy) => deploy.environment)
+    deploy: DeployEntitie[];
 }

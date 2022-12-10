@@ -1,10 +1,10 @@
-import { Application } from './application';
-import { Deploy } from './deploy';
+import { ApplicationEntitie } from './application';
+import { DeployEntitie } from './deploy';
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, Index, OneToMany } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'version' })
 @Index(['version', 'application'], { unique: true })
-export class Version {
+export class VersionEntitie {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -12,14 +12,14 @@ export class Version {
     @Column('simple-array', { default: '0.0.0' })
     version: string;
 
-    @ManyToOne(() => Application, (application) => application.versions, { nullable: false })
-    application: Application;
+    @ManyToOne(() => ApplicationEntitie, (application) => application.versions, { nullable: false })
+    application: ApplicationEntitie;
 
     @Column()
     applicationId: number;
 
-    @OneToMany(() => Deploy, (deploy) => deploy.version)
-    deploy: Deploy[]
+    @OneToMany(() => DeployEntitie, (deploy) => deploy.version)
+    deploy: DeployEntitie[]
 
     @Column('timestamp', { nullable: false, default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date

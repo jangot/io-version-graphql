@@ -3,6 +3,13 @@ type Book {
     author: String
 }
 
+type Application {
+    id: ID!
+    name: String!
+    isActive: Boolean!
+}
+
 type Query {
     books: [Book]
+    applications: [Application]
 }

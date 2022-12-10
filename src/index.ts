@@ -1,10 +1,11 @@
 import 'reflect-metadata';
-import { ApolloServer, BaseContext } from '@apollo/server';
+import { ApolloServer } from '@apollo/server';
 import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { loadSchemaSync } from '@graphql-tools/load';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 
+import { AppContext } from './AppContext';
 import server from './Server';
 import { resolvers } from './resolvers';
 
@@ -19,10 +20,6 @@ const apollo = new ApolloServer<AppContext>({
     ]
 });
 
-interface AppContext extends BaseContext {
-    resId: string;
-}
-
 (async () => {
     await server.init();
     const { url } = await startStandaloneServer(apollo, {
@@ -30,6 +27,7 @@ interface AppContext extends BaseContext {
         context: async (ctx): Promise<AppContext> => {
             return {
                 ...ctx,
+                server,
                 resId: '12w-12w',
             }
         }

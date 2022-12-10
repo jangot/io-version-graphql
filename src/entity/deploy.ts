@@ -1,21 +1,21 @@
-import { Environment } from './environment';
-import { Version } from './version';
+import { EnvironmentEntitie } from './environment';
+import { VersionEntitie } from './version';
 import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'deploy' })
 @Index(['version', 'environment'], { unique: true })
-export class Deploy {
+export class DeployEntitie {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(() => Version, (version) => version.deploy, { nullable: false })
-    version: Version;
+    @ManyToOne(() => VersionEntitie, (version) => version.deploy, { nullable: false })
+    version: VersionEntitie;
 
     @Column()
     versionId: number;
 
-    @ManyToOne(() => Environment, (env) => env.deploy, { nullable: false })
-    environment: Environment;
+    @ManyToOne(() => EnvironmentEntitie, (env) => env.deploy, { nullable: false })
+    environment: EnvironmentEntitie;
 
     @Column()
     environmentId: number;
