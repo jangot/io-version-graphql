@@ -1,13 +1,14 @@
+import 'reflect-metadata';
 import { ApolloServer, BaseContext } from '@apollo/server';
 import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { loadSchemaSync } from '@graphql-tools/load';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 
-import app from './Application';
+import server from './Server';
 import { resolvers } from './resolvers';
 
-const server = new ApolloServer<AppContext>({
+const apollo = new ApolloServer<AppContext>({
     typeDefs: loadSchemaSync("./scheme/*.graphql", {
         loaders: [new GraphQLFileLoader()],
       }),
@@ -23,9 +24,9 @@ interface AppContext extends BaseContext {
 }
 
 (async () => {
-    await app.init();
-    const { url } = await startStandaloneServer(server, {
-        listen: { port: app.config.port },
+    await server.init();
+    const { url } = await startStandaloneServer(apollo, {
+        listen: { port: server.config.port },
         context: async (ctx): Promise<AppContext> => {
             return {
                 ...ctx,
@@ -34,5 +35,5 @@ interface AppContext extends BaseContext {
         }
     });
 
-    app.logger.info(`🚀  Server ready at: ${url}`);
+    server.logger.info(`🚀  Server ready at: ${url}`);
 })();
