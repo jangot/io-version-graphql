@@ -6,8 +6,9 @@ import { loadSchemaSync } from '@graphql-tools/load';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 
 import { AppContext } from './AppContext';
-import server from './Server';
+import server from './server';
 import { getResolvers } from './resolvers';
+import { DataLoaders } from './server/DataLoaders';
 
 
 
@@ -19,6 +20,9 @@ import { getResolvers } from './resolvers';
             loaders: [new GraphQLFileLoader()],
           }),
         resolvers: await getResolvers(),
+        dataSources: () => {
+            return {};
+        },
         plugins: [
             /* @ts-ignore */
             ApolloServerPluginLandingPageGraphQLPlayground(),
@@ -31,6 +35,7 @@ import { getResolvers } from './resolvers';
             return {
                 ...ctx,
                 server,
+                dataLoaders: new DataLoaders(server),
                 resId: '12w-12w',
             }
         }
