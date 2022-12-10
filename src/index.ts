@@ -1,7 +1,6 @@
 import { ApolloServer, BaseContext } from '@apollo/server';
 import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import pino, { Logger } from 'pino';
 import { loadSchemaSync } from '@graphql-tools/load';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 
