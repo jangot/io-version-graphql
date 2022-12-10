@@ -6,17 +6,17 @@ import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, Index, OneToMany } f
 @Index(['version', 'application'], { unique: true })
 export class VersionEntitie {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: string;
 
     // @Column({ nullable: false })
     @Column('simple-array', { default: '0.0.0' })
     version: string;
 
+    @Column()
+    applicationId: string;
+
     @ManyToOne(() => ApplicationEntitie, (application) => application.versions, { nullable: false })
     application: ApplicationEntitie;
-
-    @Column()
-    applicationId: number;
 
     @OneToMany(() => DeployEntitie, (deploy) => deploy.version)
     deploy: DeployEntitie[]

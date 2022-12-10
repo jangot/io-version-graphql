@@ -5,7 +5,7 @@ import { RuleEntitie } from './rule';
 @Index(['name'])
 export class RuleKeyEntitie {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: string;
 
     @Column({ nullable: false, unique: true })
     name: string;

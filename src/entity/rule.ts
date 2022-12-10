@@ -6,20 +6,20 @@ import { RuleKeyEntitie } from './rule-key';
 @Index(['key', 'value', 'environment'], { unique: true })
 export class RuleEntitie {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: string;
+
+    @Column({ nullable: false })
+    value: string;
+
+    @Column()
+    keyId: string;
 
     @ManyToOne(() => RuleKeyEntitie, (ruleKey) => ruleKey.rules, { nullable: false })
     key: RuleKeyEntitie;
 
     @Column()
-    keyId: number;
-
-    @Column({ nullable: false })
-    value: string;
+    environmentId: string;
 
     @ManyToOne(() => EnvironmentEntitie, (env) => env.rules, { nullable: false })
     environment: EnvironmentEntitie;
-
-    @Column()
-    environmentId: number;
 }

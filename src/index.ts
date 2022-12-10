@@ -7,21 +7,24 @@ import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 
 import { AppContext } from './AppContext';
 import server from './Server';
-import { resolvers } from './resolvers';
+import { getResolvers } from './resolvers';
 
-const apollo = new ApolloServer<AppContext>({
-    typeDefs: loadSchemaSync("./scheme/*.graphql", {
-        loaders: [new GraphQLFileLoader()],
-      }),
-    resolvers,
-    plugins: [
-        /* @ts-ignore */
-        ApolloServerPluginLandingPageGraphQLPlayground(),
-    ]
-});
+
 
 (async () => {
     await server.init();
+
+    const apollo = new ApolloServer<AppContext>({
+        typeDefs: loadSchemaSync("./scheme/*.graphql", {
+            loaders: [new GraphQLFileLoader()],
+          }),
+        resolvers: await getResolvers(),
+        plugins: [
+            /* @ts-ignore */
+            ApolloServerPluginLandingPageGraphQLPlayground(),
+        ]
+    });
+
     const { url } = await startStandaloneServer(apollo, {
         listen: { port: server.config.port },
         context: async (ctx): Promise<AppContext> => {

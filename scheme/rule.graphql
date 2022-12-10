@@ -1,0 +1,13 @@
+type RuleKey {
+    id: ID!
+    name: String!
+    specificity: Int!
+}
+
+type Rule {
+    id: ID!
+    keyId: String!
+    value: String!
+    environmentId: String!
+    key: RuleKey
+}

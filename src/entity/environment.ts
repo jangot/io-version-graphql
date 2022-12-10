@@ -5,7 +5,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 @Entity({ name: 'environment' })
 export class EnvironmentEntitie {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: string;
 
     @Column({ nullable: false })
     name: string;

@@ -1,19 +1,17 @@
-import { QueryApplications } from "./applications";
+import { getApplications } from './applications';
+import { getRules } from './rules';
 
-const books = [
-    {
-        title: 'The Awakening',
-        author: 'Kate Chopin',
-    },
-    {
-        title: 'City of Glass',
-        author: 'Paul Auster',
-    },
-];
+type cb = (a: any) => any
+const factories: cb[] = [
+    getApplications,
+    getRules
+]
 
-export const resolvers = {
-    Query: {
-        books: () => books,
-        applications: QueryApplications
-    },
+export const getResolvers = async(): Promise<any> => {
+    const base = {
+        Query: {
+            status: () => ({ ready: true })
+        }
+    }
+    return factories.reduce((memo, factory) => factory(memo), base);
 };

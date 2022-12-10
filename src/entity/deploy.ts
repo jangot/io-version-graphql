@@ -6,19 +6,19 @@ import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from 'typeor
 @Index(['version', 'environment'], { unique: true })
 export class DeployEntitie {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: string;
+
+    @Column()
+    versionId: string;
 
     @ManyToOne(() => VersionEntitie, (version) => version.deploy, { nullable: false })
     version: VersionEntitie;
 
     @Column()
-    versionId: number;
+    environmentId: string;
 
     @ManyToOne(() => EnvironmentEntitie, (env) => env.deploy, { nullable: false })
     environment: EnvironmentEntitie;
-
-    @Column()
-    environmentId: number;
 
     @Column('timestamp', { nullable: false, default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date

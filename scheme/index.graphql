@@ -1,15 +1,9 @@
-type Book {
-    title: String
-    author: String
-}
-
-type Application {
-    id: ID!
-    name: String!
-    isActive: Boolean!
+type Status {
+    ready: Boolean
 }
 
 type Query {
-    books: [Book]
-    applications: [Application]
+    status: Status
+    rules(p: String): [Rule!]
+    applications(p: String): [Application!]
 }
