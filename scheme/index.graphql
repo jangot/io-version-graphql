@@ -4,9 +4,10 @@ type Status {
 
 type Query {
     status: Status
+    applications(p: String): [Application!]
+    application(id: ID): Application
     rules(p: String): [Rule!]
     ruleKeys(p: String): [RuleKey!]
-    applications(p: String): [Application!]
     versions(p: String): [Version!]
     environments(p: String): [Environment!]
     deploys(p: String): [Deploy!]

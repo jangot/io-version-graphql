@@ -17,7 +17,7 @@ export class ApplicationService {
                 }
             });
 
-            return keys.map((key) => apps.find((app) => app.id === key));
+            return keys.map((key) => apps.find((app) => app.id == key));
         });
     }
 

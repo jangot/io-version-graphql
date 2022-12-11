@@ -8,5 +8,9 @@ export const getApplications = (base: any) => {
         return ctx.services.application.findList();
     }
 
+    base.Query.application = async(p, args, ctx: AppContext): Promise<Application | null> => {
+        return ctx.services.application.loaderById.load(args.id);
+    }
+
     return base;
 }

@@ -18,7 +18,7 @@ export class EnvironmentService {
                 }
             });
 
-            return keys.map((key) => enviromets.find((env) => env.id === key));
+            return keys.map((key) => enviromets.find((env) => env.id == key));
         });
     }
 

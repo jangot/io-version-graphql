@@ -42,6 +42,7 @@ export type Environment = {
 
 export type Query = {
   __typename?: 'Query';
+  application?: Maybe<Application>;
   applications?: Maybe<Array<Application>>;
   deploys?: Maybe<Array<Deploy>>;
   environments?: Maybe<Array<Environment>>;
@@ -49,6 +50,11 @@ export type Query = {
   rules?: Maybe<Array<Rule>>;
   status?: Maybe<Status>;
   versions?: Maybe<Array<Version>>;
+};
+
+
+export type QueryApplicationArgs = {
+  id?: InputMaybe<Scalars['ID']>;
 };
 
 
@@ -106,6 +112,7 @@ export type Version = {
   __typename?: 'Version';
   application?: Maybe<Application>;
   applicationId: Scalars['String'];
+  deploys?: Maybe<Array<Deploy>>;
   id: Scalars['ID'];
   version: Scalars['String'];
 };
@@ -237,6 +244,7 @@ export type EnvironmentResolvers<ContextType = any, ParentType extends Resolvers
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  application?: Resolver<Maybe<ResolversTypes['Application']>, ParentType, ContextType, Partial<QueryApplicationArgs>>;
   applications?: Resolver<Maybe<Array<ResolversTypes['Application']>>, ParentType, ContextType, Partial<QueryApplicationsArgs>>;
   deploys?: Resolver<Maybe<Array<ResolversTypes['Deploy']>>, ParentType, ContextType, Partial<QueryDeploysArgs>>;
   environments?: Resolver<Maybe<Array<ResolversTypes['Environment']>>, ParentType, ContextType, Partial<QueryEnvironmentsArgs>>;
@@ -270,6 +278,7 @@ export type StatusResolvers<ContextType = any, ParentType extends ResolversParen
 export type VersionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Version'] = ResolversParentTypes['Version']> = {
   application?: Resolver<Maybe<ResolversTypes['Application']>, ParentType, ContextType>;
   applicationId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  deploys?: Resolver<Maybe<Array<ResolversTypes['Deploy']>>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   version?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

@@ -12,7 +12,7 @@ export class DeployService {
         this.loaderById = new DataLoader(async(keys: Array<string>) => {
             const deploys = await this.db.getRepository(DeployEntitie).find({ where: { id: In(keys) } });
 
-            return keys.map((key) => deploys.find((deploy) => deploy.id === key));
+            return keys.map((key) => deploys.find((deploy) => deploy.id == key));
         });
     }
 

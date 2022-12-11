@@ -12,14 +12,21 @@ export class VersionService {
 
         this.loaderById = new DataLoader(async(keys: Array<string>) => {
             const versions = await this.db.getRepository(VersionEntitie).find({
-                where: { id: In(keys) }
+                where: { id: In(keys) },
+                relations: {
+                    deploy: true,
+                }
             });
 
-            return keys.map((key) => versions.find((ver) => ver.id === key));
+            return keys.map((key) => versions.find((ver) => ver.id == key));
         });
     }
 
     findList(): Promise<VersionEntitie[]> {
-        return this.repo.find({});
+        return this.repo.find({
+            relations: {
+                deploy: true,
+            }
+        });
     }
 }

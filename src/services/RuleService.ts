@@ -14,7 +14,7 @@ export class RuleService {
                 where: { id: In(keys) }
             });
 
-            return keys.map((key) => rules.find((rule) => rule.id === key));
+            return keys.map((key) => rules.find((rule) => rule.id == key));
         });
     }
 
