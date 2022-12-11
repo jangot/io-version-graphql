@@ -19,7 +19,7 @@ export class VersionEntitie {
     application: ApplicationEntitie;
 
     @OneToMany(() => DeployEntitie, (deploy) => deploy.version)
-    deploy: DeployEntitie[]
+    deploys: DeployEntitie[]
 
     @Column('timestamp', { nullable: false, default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date

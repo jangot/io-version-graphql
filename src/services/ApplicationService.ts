@@ -1,6 +1,7 @@
 import { ApplicationEntitie } from '../entity/application';
 import { DataSource, In, Repository } from 'typeorm';
 import * as DataLoader from 'dataloader';
+import { version } from 'os';
 
 export class ApplicationService {
     repo: Repository<ApplicationEntitie>;
@@ -11,10 +12,7 @@ export class ApplicationService {
 
         this.loaderById = new DataLoader(async(keys: Array<string>) => {
             const apps = await this.db.getRepository(ApplicationEntitie).find({
-                where: { id: In(keys) },
-                relations: {
-                    versions: true
-                }
+                where: { id: In(keys) }
             });
 
             return keys.map((key) => apps.find((app) => app.id == key));
@@ -22,10 +20,6 @@ export class ApplicationService {
     }
 
     findList(): Promise<ApplicationEntitie[]> {
-        return this.repo.find({
-            relations: {
-                versions: true
-            }
-        });
+        return this.repo.find({});
     }
 }

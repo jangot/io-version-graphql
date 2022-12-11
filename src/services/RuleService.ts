@@ -5,6 +5,7 @@ import { RuleEntitie } from '../entity/rule';
 export class RuleService {
     repo: Repository<RuleEntitie>;
     loaderById: DataLoader<string, RuleEntitie>;
+    loaderByEnviromentId: DataLoader<string, RuleEntitie>;
 
     constructor(private db: DataSource) {
         this.repo = db.getRepository(RuleEntitie);
@@ -15,6 +16,13 @@ export class RuleService {
             });
 
             return keys.map((key) => rules.find((rule) => rule.id == key));
+        });
+        this.loaderByEnviromentId = new DataLoader(async(keys: Array<string>) => {
+            const rules = await this.db.getRepository(RuleEntitie).find({
+                where: { environmentId: In(keys) }
+            });
+
+            return keys.map((key) => rules.find((rule) => rule.environmentId == key));
         });
     }
 

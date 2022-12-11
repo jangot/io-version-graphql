@@ -45,6 +45,7 @@ export type Query = {
   application?: Maybe<Application>;
   applications?: Maybe<Array<Application>>;
   deploys?: Maybe<Array<Deploy>>;
+  environment?: Maybe<Environment>;
   environments?: Maybe<Array<Environment>>;
   ruleKeys?: Maybe<Array<RuleKey>>;
   rules?: Maybe<Array<Rule>>;
@@ -65,6 +66,11 @@ export type QueryApplicationsArgs = {
 
 export type QueryDeploysArgs = {
   p?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryEnvironmentArgs = {
+  id?: InputMaybe<Scalars['ID']>;
 };
 
 
@@ -247,6 +253,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   application?: Resolver<Maybe<ResolversTypes['Application']>, ParentType, ContextType, Partial<QueryApplicationArgs>>;
   applications?: Resolver<Maybe<Array<ResolversTypes['Application']>>, ParentType, ContextType, Partial<QueryApplicationsArgs>>;
   deploys?: Resolver<Maybe<Array<ResolversTypes['Deploy']>>, ParentType, ContextType, Partial<QueryDeploysArgs>>;
+  environment?: Resolver<Maybe<ResolversTypes['Environment']>, ParentType, ContextType, Partial<QueryEnvironmentArgs>>;
   environments?: Resolver<Maybe<Array<ResolversTypes['Environment']>>, ParentType, ContextType, Partial<QueryEnvironmentsArgs>>;
   ruleKeys?: Resolver<Maybe<Array<ResolversTypes['RuleKey']>>, ParentType, ContextType, Partial<QueryRuleKeysArgs>>;
   rules?: Resolver<Maybe<Array<ResolversTypes['Rule']>>, ParentType, ContextType, Partial<QueryRulesArgs>>;

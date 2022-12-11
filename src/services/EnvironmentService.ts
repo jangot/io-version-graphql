@@ -5,6 +5,7 @@ import * as DataLoader from 'dataloader';
 export class EnvironmentService {
     repo: Repository<EnvironmentEntitie>;
     loaderById: DataLoader<string, EnvironmentEntitie>;
+    loaderByDeploy: DataLoader<string, EnvironmentEntitie>;
 
     constructor(private db: DataSource) {
         this.repo = db.getRepository(EnvironmentEntitie);
@@ -14,7 +15,6 @@ export class EnvironmentService {
                 where: { id: In(keys) },
                 relations: {
                     rules: true,
-                    deploys: true
                 }
             });
 
@@ -26,7 +26,6 @@ export class EnvironmentService {
         return this.repo.find({
             relations: {
                 rules: true,
-                deploys: true
             }
         });
     }

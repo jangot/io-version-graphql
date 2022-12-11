@@ -11,7 +11,7 @@ export class DeployEntitie {
     @Column()
     versionId: string;
 
-    @ManyToOne(() => VersionEntitie, (version) => version.deploy, { nullable: false })
+    @ManyToOne(() => VersionEntitie, (version) => version.deploys, { nullable: false })
     version: VersionEntitie;
 
     @Column()
