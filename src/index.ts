@@ -8,7 +8,7 @@ import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import { AppContext } from './AppContext';
 import server from './server';
 import { getResolvers } from './resolvers';
-import { DataLoaders } from './server/DataLoaders';
+import { Services } from './services/Services';
 
 
 
@@ -38,7 +38,7 @@ import { DataLoaders } from './server/DataLoaders';
             return {
                 ...ctx,
                 server,
-                dataLoaders: new DataLoaders(server),
+                services: new Services(server),
                 resId: '12w-12w',
             }
         }
