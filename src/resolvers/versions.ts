@@ -10,7 +10,10 @@ export function getVersions(base: any) {
     base.Version = {
         application: (version: Version, a, ctx: AppContext) => {
             return ctx.services.application.loaderById.load(version.applicationId);
-        }
+        },
+        deploys: (version: Version, a, ctx: AppContext) => {
+            return ctx.services.deploy.loaderByVersionId.load(version.id);
+        },
     }
 
     return base;
