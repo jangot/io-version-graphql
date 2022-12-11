@@ -1,5 +1,6 @@
 import { Server } from '../server';
 import { ApplicationService } from './ApplicationService';
+import { DeployService } from './DeployService';
 import { EnvironmentService } from './EnvironmentService';
 import { RuleKeyService } from './RuleKeyService';
 import { RuleService } from './RuleService';
@@ -11,6 +12,7 @@ export class Services {
     ruleKey: RuleKeyService;
     environment: EnvironmentService;
     rule: RuleService;
+    deploy: DeployService;
 
     constructor(private server: Server) {
         this.application = new ApplicationService(this.server.db);
@@ -18,5 +20,6 @@ export class Services {
         this.ruleKey = new RuleKeyService(this.server.db);
         this.environment = new EnvironmentService(this.server.db);
         this.rule = new RuleService(this.server.db);
+        this.deploy = new DeployService(this.server.db);
     }
 }

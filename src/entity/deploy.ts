@@ -17,7 +17,7 @@ export class DeployEntitie {
     @Column()
     environmentId: string;
 
-    @ManyToOne(() => EnvironmentEntitie, (env) => env.deploy, { nullable: false })
+    @ManyToOne(() => EnvironmentEntitie, (env) => env.deploys, { nullable: false })
     environment: EnvironmentEntitie;
 
     @Column('timestamp', { nullable: false, default: () => 'CURRENT_TIMESTAMP' })

@@ -8,5 +8,7 @@ export const getEnvironments = (base: any) => {
         return ctx.services.environment.find();
     }
 
+    // base.Environment
+
     return base;
 }

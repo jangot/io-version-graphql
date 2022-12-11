@@ -20,5 +20,5 @@ export class EnvironmentEntitie {
     rules: RuleEntitie[];
 
     @OneToMany(() => DeployEntitie, (deploy) => deploy.environment)
-    deploy: DeployEntitie[];
+    deploys: DeployEntitie[];
 }

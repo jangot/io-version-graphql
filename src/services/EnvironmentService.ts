@@ -14,7 +14,7 @@ export class EnvironmentService {
                 where: { id: In(keys) },
                 relations: {
                     rules: true,
-                    deploy: true
+                    deploys: true
                 }
             });
         });
@@ -24,7 +24,7 @@ export class EnvironmentService {
         return this.repo.find({
             relations: {
                 rules: true,
-                deploy: true
+                deploys: true
             }
         });
     }

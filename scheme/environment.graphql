@@ -5,4 +5,5 @@ type Environment {
     description: String!
     orderIndex: Int!
     rules: [Rule!]
+    deploys: [Deploy!]
 }

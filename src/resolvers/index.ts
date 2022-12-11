@@ -1,4 +1,5 @@
 import { getApplications } from './applications';
+import { getDeploy } from './deploy';
 import { getEnvironments } from './environment';
 import { getRules } from './rules';
 import { getVersions } from './versions';
@@ -8,7 +9,8 @@ const factories: cb[] = [
     getApplications,
     getRules,
     getVersions,
-    getEnvironments
+    getEnvironments,
+    getDeploy
 ]
 
 export const getResolvers = async(): Promise<any> => {

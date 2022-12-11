@@ -1,0 +1,7 @@
+type Deploy {
+    id: ID!
+    versionId: String
+    version: Version
+    environmentId: String
+    environment: Environment
+}
