@@ -9,9 +9,10 @@ export class DeployService {
     constructor(private db: DataSource) {
         this.repo = db.getRepository(DeployEntitie);
 
-        this.loaderById = new DataLoader((keys: Array<string>) => {
-            return this.db.getRepository(DeployEntitie).find({
-                where: { id: In(keys) } });
+        this.loaderById = new DataLoader(async(keys: Array<string>) => {
+            const deploys = await this.db.getRepository(DeployEntitie).find({ where: { id: In(keys) } });
+
+            return keys.map((key) => deploys.find((deploy) => deploy.id === key));
         });
     }
 

@@ -9,10 +9,12 @@ export class RuleKeyService {
     constructor(private db: DataSource) {
         this.repo = db.getRepository(RuleKeyEntitie);
 
-        this.loaderById = new DataLoader((keys: Array<string>) => {
-            return this.db.getRepository(RuleKeyEntitie).find({
+        this.loaderById = new DataLoader(async(keys: Array<string>) => {
+            const ruleKeys = await this.db.getRepository(RuleKeyEntitie).find({
                 where: { id: In(keys) }
             });
+
+            return keys.map((key) => ruleKeys.find((ruleKey) => ruleKey.id === key));
         });
     }
 }

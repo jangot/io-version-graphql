@@ -9,14 +9,16 @@ export class EnvironmentService {
     constructor(private db: DataSource) {
         this.repo = db.getRepository(EnvironmentEntitie);
 
-        this.loaderById = new DataLoader((keys: Array<string>) => {
-            return this.db.getRepository(EnvironmentEntitie).find({
+        this.loaderById = new DataLoader(async(keys: Array<string>) => {
+            const enviromets = await this.db.getRepository(EnvironmentEntitie).find({
                 where: { id: In(keys) },
                 relations: {
                     rules: true,
                     deploys: true
                 }
             });
+
+            return keys.map((key) => enviromets.find((env) => env.id === key));
         });
     }
 

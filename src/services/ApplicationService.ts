@@ -9,13 +9,15 @@ export class ApplicationService {
     constructor(private db: DataSource) {
         this.repo = db.getRepository(ApplicationEntitie);
 
-        this.loaderById = new DataLoader((keys: Array<string>) => {
-            return this.db.getRepository(ApplicationEntitie).find({
+        this.loaderById = new DataLoader(async(keys: Array<string>) => {
+            const apps = await this.db.getRepository(ApplicationEntitie).find({
                 where: { id: In(keys) },
                 relations: {
                     versions: true
                 }
             });
+
+            return keys.map((key) => apps.find((app) => app.id === key));
         });
     }
 
