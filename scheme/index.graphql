@@ -8,4 +8,5 @@ type Query {
     ruleKeys(p: String): [RuleKey!]
     applications(p: String): [Application!]
     versions(p: String): [Version!]
+    environments(p: String): [Environment!]
 }

@@ -1,12 +1,11 @@
 import { AppContext } from '../AppContext';
 import { Rule, RuleKey } from '../generated/graphql';
-import { RuleEntitie } from '../entity/rule';
 
 export const getRules = (base: any) => {
     base.Query = base.Query || {};
 
     base.Query.rules = async (p, a, ctx: AppContext): Promise<Rule[]> => {
-        return ctx.server.db.getRepository(RuleEntitie).find();
+        return ctx.services.rule.repo.find();
     }
 
     base.Query.ruleKeys = async (p, a, ctx: AppContext): Promise<RuleKey[]> => {

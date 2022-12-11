@@ -1,0 +1,7 @@
+
+type Environment {
+    id: ID!
+    name: String!
+    description: String!
+    orderIndex: Int!
+}
