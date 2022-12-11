@@ -9,7 +9,7 @@ export class VersionEntitie {
     id: string;
 
     // @Column({ nullable: false })
-    @Column('simple-array', { default: '0.0.0' })
+    @Column({ default: '0.0.0' })
     version: string;
 
     @Column()

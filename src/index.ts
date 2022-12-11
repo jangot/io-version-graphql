@@ -14,12 +14,15 @@ import { DataLoaders } from './server/DataLoaders';
 
 (async () => {
     await server.init();
+    const resolvers = await getResolvers();
 
     const apollo = new ApolloServer<AppContext>({
-        typeDefs: loadSchemaSync("./scheme/*.graphql", {
-            loaders: [new GraphQLFileLoader()],
-          }),
-        resolvers: await getResolvers(),
+        typeDefs: [
+            loadSchemaSync("./scheme/*.graphql", {
+                loaders: [new GraphQLFileLoader()],
+            })
+        ],
+        resolvers,
         dataSources: () => {
             return {};
         },

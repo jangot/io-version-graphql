@@ -1,10 +1,12 @@
 import { getApplications } from './applications';
 import { getRules } from './rules';
+import { getVersions } from './versions';
 
 type cb = (a: any) => any
 const factories: cb[] = [
     getApplications,
-    getRules
+    getRules,
+    getVersions
 ]
 
 export const getResolvers = async(): Promise<any> => {

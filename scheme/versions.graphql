@@ -1,0 +1,8 @@
+type Version {
+    id: ID!
+    version: String!
+    # TODO fix type
+    # createdAt: String!
+    applicationId: String!
+    application: Application
+}

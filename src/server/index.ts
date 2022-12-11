@@ -23,7 +23,7 @@ export class Server {
             port: 5432,
             username: 'postgres',
             password: '123',
-            database: 'io_versions_2',
+            database: 'io_versions',
             synchronize: true,
             entities,
             subscribers: [],

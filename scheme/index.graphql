@@ -7,4 +7,5 @@ type Query {
     rules(p: String): [Rule!]
     ruleKeys(p: String): [RuleKey!]
     applications(p: String): [Application!]
+    versions(p: String): [Version!]
 }
