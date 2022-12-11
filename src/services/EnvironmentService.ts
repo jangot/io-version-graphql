@@ -12,10 +12,7 @@ export class EnvironmentService {
 
         this.loaderById = new DataLoader(async(keys: Array<string>) => {
             const enviromets = await this.db.getRepository(EnvironmentEntitie).find({
-                where: { id: In(keys) },
-                relations: {
-                    rules: true,
-                }
+                where: { id: In(keys) }
             });
 
             return keys.map((key) => enviromets.find((env) => env.id == key));
@@ -23,10 +20,6 @@ export class EnvironmentService {
     }
 
     find(): Promise<EnvironmentEntitie[]> {
-        return this.repo.find({
-            relations: {
-                rules: true,
-            }
-        });
+        return this.repo.find({});
     }
 }

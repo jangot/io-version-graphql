@@ -16,7 +16,7 @@ export const getEnvironments = (base: any) => {
             return ctx.services.deploy.loaderByEnviromentId.load(env.id);
         },
         rules: (env, a, ctx: AppContext) => {
-            return ctx.services.deploy.loaderByEnviromentId.load(env.id);
+            return ctx.services.rule.loaderByEnviromentId.load(env.id);
         }
     };
 
