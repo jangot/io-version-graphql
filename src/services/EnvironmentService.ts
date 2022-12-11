@@ -11,8 +11,21 @@ export class EnvironmentService {
 
         this.loaderById = new DataLoader((keys: Array<string>) => {
             return this.db.getRepository(EnvironmentEntitie).find({
-                where: { id: In(keys) }
+                where: { id: In(keys) },
+                relations: {
+                    rules: true,
+                    deploy: true
+                }
             });
+        });
+    }
+
+    find(): Promise<EnvironmentEntitie[]> {
+        return this.repo.find({
+            relations: {
+                rules: true,
+                deploy: true
+            }
         });
     }
 }

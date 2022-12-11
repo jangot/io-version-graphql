@@ -5,7 +5,7 @@ export const getEnvironments = (base: any) => {
     base.Query = base.Query || {};
 
     base.Query.environments = async(p, a, ctx: AppContext): Promise<Environment[]> => {
-        return ctx.services.environment.repo.find();
+        return ctx.services.environment.find();
     }
 
     return base;

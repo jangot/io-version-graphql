@@ -5,7 +5,7 @@ export const getRules = (base: any) => {
     base.Query = base.Query || {};
 
     base.Query.rules = async (p, a, ctx: AppContext): Promise<Rule[]> => {
-        return ctx.services.rule.repo.find();
+        return ctx.services.rule.find();
     }
 
     base.Query.ruleKeys = async (p, a, ctx: AppContext): Promise<RuleKey[]> => {

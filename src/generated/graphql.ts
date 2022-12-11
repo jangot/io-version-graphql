@@ -27,6 +27,7 @@ export type Environment = {
   id: Scalars['ID'];
   name: Scalars['String'];
   orderIndex: Scalars['Int'];
+  rules?: Maybe<Array<Rule>>;
 };
 
 export type Query = {
@@ -203,6 +204,7 @@ export type EnvironmentResolvers<ContextType = any, ParentType extends Resolvers
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   orderIndex?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  rules?: Resolver<Maybe<Array<ResolversTypes['Rule']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

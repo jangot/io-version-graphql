@@ -15,4 +15,8 @@ export class RuleService {
             });
         });
     }
+
+    find(): Promise<RuleEntitie[]> {
+        return this.repo.find({});
+    }
 }
