@@ -1,6 +1,6 @@
 import { BaseContext } from '@apollo/server';
 import { Server } from './server';
-import { Services } from './services/Services';
+import { Services } from './services';
 
 export interface AppContext extends BaseContext {
     resId: string;

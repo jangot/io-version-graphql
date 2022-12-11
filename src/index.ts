@@ -8,7 +8,7 @@ import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import { AppContext } from './AppContext';
 import server from './server';
 import { getResolvers } from './resolvers';
-import { Services } from './services/Services';
+import { Services } from './services';
 
 
 
@@ -23,9 +23,6 @@ import { Services } from './services/Services';
             })
         ],
         resolvers,
-        dataSources: () => {
-            return {};
-        },
         plugins: [
             /* @ts-ignore */
             ApolloServerPluginLandingPageGraphQLPlayground(),
