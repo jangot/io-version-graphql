@@ -1,6 +1,6 @@
 import { VersionEntitie } from '../entity/version';
 import { DataSource, In, Repository } from 'typeorm';
-import DataLoader from 'dataloader';
+import * as DataLoader from 'dataloader';
 
 export class VersionService {
     repo: Repository<VersionEntitie>;

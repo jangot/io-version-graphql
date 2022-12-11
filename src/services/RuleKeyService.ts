@@ -1,4 +1,4 @@
-import DataLoader from 'dataloader';
+import * as DataLoader from 'dataloader';
 import { RuleKeyEntitie } from '../entity/rule-key';
 import { DataSource, In, Repository } from 'typeorm';
 
