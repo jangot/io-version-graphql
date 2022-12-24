@@ -1,7 +1,7 @@
 import { ApplicationEntitie } from '../entity/application';
 import { DataSource, In, Repository } from 'typeorm';
 import * as DataLoader from 'dataloader';
-import { version } from 'os';
+import { ApplicationInput } from 'src/generated/graphql';
 
 export class ApplicationService {
     repo: Repository<ApplicationEntitie>;
@@ -17,6 +17,22 @@ export class ApplicationService {
 
             return keys.map((key) => apps.find((app) => app.id == key));
         });
+    }
+
+    create(input: ApplicationInput): Promise<ApplicationEntitie> {
+        const app = new ApplicationEntitie();
+        app.name = input.name;
+        app.isActive = input.isActive;
+
+        return this.db.getRepository(ApplicationEntitie).save(app);
+    }
+
+    async save(id: string, input: ApplicationInput): Promise<ApplicationEntitie> {
+        const app = await this.db.getRepository(ApplicationEntitie).findOneBy({ id });
+        app.name = input.name;
+        app.isActive = input.isActive;
+
+        return this.db.getRepository(ApplicationEntitie).save(app);
     }
 
     findList(): Promise<ApplicationEntitie[]> {

@@ -17,3 +17,8 @@ type Query {
 
     deploys(p: String): [Deploy!]
 }
+
+type Mutation {
+    status: Status
+    application(application: ApplicationInput): Application
+}

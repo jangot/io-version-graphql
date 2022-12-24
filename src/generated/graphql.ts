@@ -21,6 +21,12 @@ export type Application = {
   versions?: Maybe<Array<Version>>;
 };
 
+export type ApplicationInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  isActive: Scalars['Boolean'];
+  name: Scalars['String'];
+};
+
 export type Deploy = {
   __typename?: 'Deploy';
   environment?: Maybe<Environment>;
@@ -38,6 +44,17 @@ export type Environment = {
   name: Scalars['String'];
   orderIndex: Scalars['Int'];
   rules?: Maybe<Array<Rule>>;
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  application?: Maybe<Application>;
+  status?: Maybe<Status>;
+};
+
+
+export type MutationApplicationArgs = {
+  application?: InputMaybe<ApplicationInput>;
 };
 
 export type Query = {
@@ -193,11 +210,13 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Application: ResolverTypeWrapper<Application>;
+  ApplicationInput: ApplicationInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Deploy: ResolverTypeWrapper<Deploy>;
   Environment: ResolverTypeWrapper<Environment>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   Rule: ResolverTypeWrapper<Rule>;
   RuleKey: ResolverTypeWrapper<RuleKey>;
@@ -209,11 +228,13 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Application: Application;
+  ApplicationInput: ApplicationInput;
   Boolean: Scalars['Boolean'];
   Deploy: Deploy;
   Environment: Environment;
   ID: Scalars['ID'];
   Int: Scalars['Int'];
+  Mutation: {};
   Query: {};
   Rule: Rule;
   RuleKey: RuleKey;
@@ -247,6 +268,11 @@ export type EnvironmentResolvers<ContextType = any, ParentType extends Resolvers
   orderIndex?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   rules?: Resolver<Maybe<Array<ResolversTypes['Rule']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  application?: Resolver<Maybe<ResolversTypes['Application']>, ParentType, ContextType, Partial<MutationApplicationArgs>>;
+  status?: Resolver<Maybe<ResolversTypes['Status']>, ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -295,6 +321,7 @@ export type Resolvers<ContextType = any> = {
   Application?: ApplicationResolvers<ContextType>;
   Deploy?: DeployResolvers<ContextType>;
   Environment?: EnvironmentResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Rule?: RuleResolvers<ContextType>;
   RuleKey?: RuleKeyResolvers<ContextType>;

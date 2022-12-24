@@ -11,12 +11,23 @@ const factories: cb[] = [
     getVersions,
     getEnvironments,
     getDeploy
-]
+];
+
+const status = {
+    ready: true
+}
 
 export const getResolvers = async(): Promise<any> => {
     const base = {
         Query: {
-            status: () => ({ ready: true })
+            status: () => status
+        },
+        Mutation: {
+            status: () => {
+                status.ready = !status.ready;
+
+                return status;
+            }
         }
     }
     return factories.reduce((memo, factory) => factory(memo), base);
