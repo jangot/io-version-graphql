@@ -21,4 +21,5 @@ type Query {
 type Mutation {
     status: Status
     application(application: ApplicationInput): Application
+    ruleKey(ruleKey: RuleKeyInlut): RuleKey
 }

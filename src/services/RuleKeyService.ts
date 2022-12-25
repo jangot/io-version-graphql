@@ -1,6 +1,7 @@
 import * as DataLoader from 'dataloader';
 import { RuleKeyEntitie } from '../entity/rule-key';
 import { DataSource, In, Repository } from 'typeorm';
+import { RuleKeyInlut } from 'src/generated/graphql';
 
 export class RuleKeyService {
     repo: Repository<RuleKeyEntitie>;
@@ -16,5 +17,21 @@ export class RuleKeyService {
 
             return keys.map((key) => ruleKeys.find((ruleKey) => ruleKey.id == key));
         });
+    }
+
+    create(input: RuleKeyInlut) {
+        const rk = new RuleKeyEntitie();
+        rk.name = input.name;
+        rk.specificity = input.specificity;
+
+        return this.db.getRepository(RuleKeyEntitie).save(rk);
+    }
+
+    async save(id: string, input: RuleKeyInlut) {
+        const rk = await this.db.getRepository(RuleKeyEntitie).findOneBy({ id });
+        rk.name = input.name;
+        rk.specificity = input.specificity;
+
+        return this.db.getRepository(RuleKeyEntitie).save(rk);
     }
 }

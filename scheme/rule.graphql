@@ -1,3 +1,9 @@
+input RuleKeyInlut {
+    id: ID
+    name: String!
+    specificity: Int!
+}
+
 type RuleKey {
     id: ID!
     name: String!

@@ -1,5 +1,9 @@
+import { ApolloServerErrorCode } from '@apollo/server/errors';
+import { GraphQLError } from 'graphql';
 import { AppContext } from 'src/AppContext';
-import { Application, ApplicationInput, Version } from 'src/generated/graphql';
+import { ApplicationGraphqlError } from '../error/ApplicationGraphqlError';
+import { EntitieNotFoundError } from '../error/EntitieNotFoundError';
+import { Application, ApplicationInput, Version } from '../generated/graphql';
 
 export const getApplications = (base: any) => {
     base.Query = base.Query || {};
@@ -14,11 +18,21 @@ export const getApplications = (base: any) => {
     }
 
     base.Mutation.application = async(p, args: { application : ApplicationInput}, ctx: AppContext): Promise<Application> => {
-        console.log(args);
-
-        return args.application.id
+        try {
+            return args.application.id
             ? ctx.services.application.save(args.application.id, args.application)
             : ctx.services.application.create(args.application);
+        } catch (error) {
+            if (error instanceof EntitieNotFoundError) {
+                throw new GraphQLError(error.message, {
+                    extensions: { code: ApplicationGraphqlError.ENTITY_NOT_FOUND },
+                  });
+            }
+
+            throw new GraphQLError(error.message, {
+                extensions: { code: ApolloServerErrorCode.INTERNAL_SERVER_ERROR },
+              });
+        }
     }
 
     base.Application = {
