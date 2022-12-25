@@ -10,7 +10,15 @@ export const getApplications = (base: any) => {
     base.Mutation = base.Mutation || {};
 
     base.Query.application = async(p, args, ctx: AppContext): Promise<Application | null> => {
-        return ctx.services.application.loaderById.load(args.id);
+        const app = await ctx.services.application.loaderById.load(args.id);
+
+        if (!app) {
+            throw new GraphQLError(`Application ${args.id} not found`, {
+                extensions: { code: ApplicationGraphqlError.ENTITY_NOT_FOUND },
+            });
+        }
+
+        return app;
     }
 
     base.Query.applications = async(p, a, ctx: AppContext): Promise<Application[]> => {
@@ -26,12 +34,12 @@ export const getApplications = (base: any) => {
             if (error instanceof EntitieNotFoundError) {
                 throw new GraphQLError(error.message, {
                     extensions: { code: ApplicationGraphqlError.ENTITY_NOT_FOUND },
-                  });
+                });
             }
 
             throw new GraphQLError(error.message, {
                 extensions: { code: ApolloServerErrorCode.INTERNAL_SERVER_ERROR },
-              });
+            });
         }
     }
 

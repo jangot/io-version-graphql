@@ -1,6 +1,7 @@
 import { DataSource, In, Repository } from 'typeorm';
 import * as DataLoader from 'dataloader';
 import { RuleEntitie } from '../entity/rule';
+import { RuleInput } from '../generated/graphql';
 
 export class RuleService {
     repo: Repository<RuleEntitie>;
@@ -28,5 +29,25 @@ export class RuleService {
 
     find(): Promise<RuleEntitie[]> {
         return this.repo.find({});
+    }
+
+    create(input: RuleInput) {
+        const rule = new RuleEntitie();
+
+        rule.value = input.value;
+        rule.keyId = input.keyId;
+        rule.environmentId = input.environmentId;
+
+        return this.db.getRepository(RuleEntitie).save(rule);
+    }
+
+    async save(id: string, input: RuleInput) {
+        const rule = await this.db.getRepository(RuleEntitie).findOneBy({ id });
+
+        rule.value = input.value;
+        rule.keyId = input.keyId;
+        rule.environmentId = input.environmentId;
+
+        return this.db.getRepository(RuleEntitie).save(rule);
     }
 }

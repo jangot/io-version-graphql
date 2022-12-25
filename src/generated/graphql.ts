@@ -49,6 +49,7 @@ export type Environment = {
 export type Mutation = {
   __typename?: 'Mutation';
   application?: Maybe<Application>;
+  rule?: Maybe<Rule>;
   ruleKey?: Maybe<RuleKey>;
   status?: Maybe<Status>;
 };
@@ -59,8 +60,13 @@ export type MutationApplicationArgs = {
 };
 
 
+export type MutationRuleArgs = {
+  rule?: InputMaybe<RuleInput>;
+};
+
+
 export type MutationRuleKeyArgs = {
-  ruleKey?: InputMaybe<RuleKeyInlut>;
+  ruleKey?: InputMaybe<RuleKeyInput>;
 };
 
 export type Query = {
@@ -125,6 +131,13 @@ export type Rule = {
   value: Scalars['String'];
 };
 
+export type RuleInput = {
+  environmentId: Scalars['String'];
+  id?: InputMaybe<Scalars['ID']>;
+  keyId: Scalars['String'];
+  value: Scalars['String'];
+};
+
 export type RuleKey = {
   __typename?: 'RuleKey';
   id: Scalars['ID'];
@@ -132,7 +145,7 @@ export type RuleKey = {
   specificity: Scalars['Int'];
 };
 
-export type RuleKeyInlut = {
+export type RuleKeyInput = {
   id?: InputMaybe<Scalars['ID']>;
   name: Scalars['String'];
   specificity: Scalars['Int'];
@@ -231,8 +244,9 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   Rule: ResolverTypeWrapper<Rule>;
+  RuleInput: RuleInput;
   RuleKey: ResolverTypeWrapper<RuleKey>;
-  RuleKeyInlut: RuleKeyInlut;
+  RuleKeyInput: RuleKeyInput;
   Status: ResolverTypeWrapper<Status>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Version: ResolverTypeWrapper<Version>;
@@ -250,8 +264,9 @@ export type ResolversParentTypes = {
   Mutation: {};
   Query: {};
   Rule: Rule;
+  RuleInput: RuleInput;
   RuleKey: RuleKey;
-  RuleKeyInlut: RuleKeyInlut;
+  RuleKeyInput: RuleKeyInput;
   Status: Status;
   String: Scalars['String'];
   Version: Version;
@@ -286,6 +301,7 @@ export type EnvironmentResolvers<ContextType = any, ParentType extends Resolvers
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   application?: Resolver<Maybe<ResolversTypes['Application']>, ParentType, ContextType, Partial<MutationApplicationArgs>>;
+  rule?: Resolver<Maybe<ResolversTypes['Rule']>, ParentType, ContextType, Partial<MutationRuleArgs>>;
   ruleKey?: Resolver<Maybe<ResolversTypes['RuleKey']>, ParentType, ContextType, Partial<MutationRuleKeyArgs>>;
   status?: Resolver<Maybe<ResolversTypes['Status']>, ParentType, ContextType>;
 };

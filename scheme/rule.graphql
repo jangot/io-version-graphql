@@ -1,4 +1,4 @@
-input RuleKeyInlut {
+input RuleKeyInput {
     id: ID
     name: String!
     specificity: Int!
@@ -8,6 +8,13 @@ type RuleKey {
     id: ID!
     name: String!
     specificity: Int!
+}
+
+input RuleInput {
+    id: ID
+    keyId: String!
+    value: String!
+    environmentId: String!
 }
 
 type Rule {

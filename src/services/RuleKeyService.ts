@@ -1,7 +1,7 @@
 import * as DataLoader from 'dataloader';
 import { RuleKeyEntitie } from '../entity/rule-key';
 import { DataSource, In, Repository } from 'typeorm';
-import { RuleKeyInlut } from 'src/generated/graphql';
+import { RuleKeyInput } from 'src/generated/graphql';
 
 export class RuleKeyService {
     repo: Repository<RuleKeyEntitie>;
@@ -19,7 +19,7 @@ export class RuleKeyService {
         });
     }
 
-    create(input: RuleKeyInlut) {
+    create(input: RuleKeyInput) {
         const rk = new RuleKeyEntitie();
         rk.name = input.name;
         rk.specificity = input.specificity;
@@ -27,7 +27,7 @@ export class RuleKeyService {
         return this.db.getRepository(RuleKeyEntitie).save(rk);
     }
 
-    async save(id: string, input: RuleKeyInlut) {
+    async save(id: string, input: RuleKeyInput) {
         const rk = await this.db.getRepository(RuleKeyEntitie).findOneBy({ id });
         rk.name = input.name;
         rk.specificity = input.specificity;
