@@ -124,6 +124,7 @@ export type QueryVersionsArgs = {
 
 export type Rule = {
   __typename?: 'Rule';
+  environment?: Maybe<Environment>;
   environmentId: Scalars['String'];
   id: Scalars['ID'];
   key?: Maybe<RuleKey>;
@@ -319,6 +320,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type RuleResolvers<ContextType = any, ParentType extends ResolversParentTypes['Rule'] = ResolversParentTypes['Rule']> = {
+  environment?: Resolver<Maybe<ResolversTypes['Environment']>, ParentType, ContextType>;
   environmentId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   key?: Resolver<Maybe<ResolversTypes['RuleKey']>, ParentType, ContextType>;

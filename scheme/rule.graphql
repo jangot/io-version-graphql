@@ -23,4 +23,5 @@ type Rule {
     value: String!
     environmentId: String!
     key: RuleKey
+    environment: Environment
 }

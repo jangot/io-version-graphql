@@ -737,6 +737,18 @@
         "description": null,
         "fields": [
           {
+            "name": "environment",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Environment",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "environmentId",
             "description": null,
             "args": [],

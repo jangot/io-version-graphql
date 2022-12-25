@@ -1,7 +1,7 @@
 import { ApolloServerErrorCode } from '@apollo/server/errors';
 import { GraphQLError } from 'graphql';
 import { AppContext } from '../AppContext';
-import { Rule, RuleKey, RuleKeyInput, RuleInput } from '../generated/graphql';
+import { Rule, RuleKey, RuleKeyInput, RuleInput, Environment } from '../generated/graphql';
 import { EntitieNotFoundError } from '../error/EntitieNotFoundError';
 import { ApplicationGraphqlError } from '../error/ApplicationGraphqlError';
 
@@ -20,6 +20,9 @@ export const getRules = (base: any) => {
     base.Rule = {
         key: (rule: Rule, a, ctx: AppContext): Promise<RuleKey> => {
             return ctx.services.ruleKey.loaderById.load(rule.keyId);
+        },
+        environment: (rule: Rule, a, ctx: AppContext): Promise<Environment> => {
+            return ctx.services.environment.loaderById.load(rule.environmentId);
         }
     }
 
