@@ -166,6 +166,12 @@ export type Version = {
   version: Scalars['String'];
 };
 
+export type VersionInput = {
+  applicationId: Scalars['String'];
+  id?: InputMaybe<Scalars['ID']>;
+  version: Scalars['String'];
+};
+
 
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -251,6 +257,7 @@ export type ResolversTypes = {
   Status: ResolverTypeWrapper<Status>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Version: ResolverTypeWrapper<Version>;
+  VersionInput: VersionInput;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -271,6 +278,7 @@ export type ResolversParentTypes = {
   Status: Status;
   String: Scalars['String'];
   Version: Version;
+  VersionInput: VersionInput;
 };
 
 export type ApplicationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Application'] = ResolversParentTypes['Application']> = {

@@ -1,3 +1,9 @@
+input VersionInput {
+    id: ID
+    version: String!
+    applicationId: String!
+}
+
 type Version {
     id: ID!
     version: String!

@@ -1,6 +1,7 @@
 import { VersionEntitie } from '../entity/version';
 import { DataSource, In, Repository } from 'typeorm';
 import * as DataLoader from 'dataloader';
+import { VersionInput } from '../generated/graphql';
 
 export class VersionService {
     repo: Repository<VersionEntitie>;
@@ -29,5 +30,22 @@ export class VersionService {
 
     findList(): Promise<VersionEntitie[]> {
         return this.repo.find({});
+    }
+
+    create(input: VersionInput): Promise<VersionEntitie> {
+        const app = new VersionEntitie();
+        app.version = input.version;
+        app.applicationId = input.applicationId;
+
+        return this.db.getRepository(VersionEntitie).save(app);
+    }
+
+    async save(id: string, input: VersionInput): Promise<VersionEntitie> {
+        const app = await this.db.getRepository(VersionEntitie).findOneBy({ id });
+
+        app.version = input.version;
+        app.applicationId = input.applicationId;
+
+        return this.db.getRepository(VersionEntitie).save(app);
     }
 }

@@ -21,6 +21,7 @@ type Query {
 type Mutation {
     status: Status
     application(application: ApplicationInput): Application
+    version(version: VersionInput): Version
     ruleKey(ruleKey: RuleKeyInput): RuleKey
     rule(rule: RuleInput): Rule
 }
