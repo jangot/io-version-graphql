@@ -26,7 +26,7 @@ export const getRules = (base: any) => {
         }
     }
 
-    base.Mutation.ruleKey = async (p, args: { ruleKey: RuleKeyInput }, ctx: AppContext) => {
+    base.Mutation.ruleKey = async (p, args: { ruleKey: RuleKeyInput }, ctx: AppContext): Promise<RuleKey> => {
         try {
             return args.ruleKey.id
                 ? ctx.services.ruleKey.save(args.ruleKey.id, args.ruleKey)
@@ -44,7 +44,7 @@ export const getRules = (base: any) => {
         }
     };
 
-    base.Mutation.rule = async (p, args: { rule: RuleInput }, ctx: AppContext) => {
+    base.Mutation.rule = async (p, args: { rule: RuleInput }, ctx: AppContext): Promise<Rule> => {
         const [
             ruleKeyExist,
             environmentExist
