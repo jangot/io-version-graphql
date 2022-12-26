@@ -1,6 +1,7 @@
 import { DataSource, In, Repository } from 'typeorm';
 import * as DataLoader from 'dataloader';
 import { DeployEntitie } from '../entity/deploy';
+import { DeployInput } from '../generated/graphql';
 
 export class DeployService {
     repo: Repository<DeployEntitie>;
@@ -34,5 +35,13 @@ export class DeployService {
 
     findList(): Promise<DeployEntitie[]> {
         return this.repo.find({});
+    }
+
+    create(input: DeployInput): Promise<DeployEntitie> {
+        const deploy = new DeployEntitie();
+        deploy.environmentId = input.environmentId;
+        deploy.versionId = input.versionId;
+
+        return this.repo.save(deploy);
     }
 }

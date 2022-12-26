@@ -21,6 +21,7 @@ type Query {
 type Mutation {
     status: Status
     environment(environment: EnvironmentInput): Environment
+    deploy(deploy: DeployInput): Deploy
     application(application: ApplicationInput): Application
     version(version: VersionInput): Version
     ruleKey(ruleKey: RuleKeyInput): RuleKey

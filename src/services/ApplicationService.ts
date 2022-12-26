@@ -24,15 +24,15 @@ export class ApplicationService {
         app.name = input.name;
         app.isActive = input.isActive;
 
-        return this.db.getRepository(ApplicationEntitie).save(app);
+        return this.repo.save(app);
     }
 
     async save(id: string, input: ApplicationInput): Promise<ApplicationEntitie> {
-        const app = await this.db.getRepository(ApplicationEntitie).findOneBy({ id });
+        const app = await this.repo.findOneBy({ id });
         app.name = input.name;
         app.isActive = input.isActive;
 
-        return this.db.getRepository(ApplicationEntitie).save(app);
+        return this.repo.save(app);
     }
 
     findList(): Promise<ApplicationEntitie[]> {

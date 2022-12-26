@@ -1,7 +1,12 @@
+input DeployInput {
+    versionId: String!
+    environmentId: String!
+}
+
 type Deploy {
     id: ID!
-    versionId: String
+    versionId: String!
     version: Version
-    environmentId: String
+    environmentId: String!
     environment: Environment
 }
