@@ -1,6 +1,7 @@
 import { EnvironmentEntitie } from '../entity/environment';
 import { DataSource, In, Repository } from 'typeorm';
 import * as DataLoader from 'dataloader';
+import { EnvironmentInput } from '../generated/graphql';
 
 export class EnvironmentService {
     repo: Repository<EnvironmentEntitie>;
@@ -21,5 +22,23 @@ export class EnvironmentService {
 
     find(): Promise<EnvironmentEntitie[]> {
         return this.repo.find({});
+    }
+
+    create(input: EnvironmentInput): Promise<EnvironmentEntitie> {
+        const env = new EnvironmentEntitie();
+        env.name = input.name;
+        env.description = input.description;
+        env.orderIndex = input.orderIndex;
+
+        return this.repo.save(env);
+    }
+
+    async save(id: string, input: EnvironmentInput): Promise<EnvironmentEntitie> {
+        const env = await this.repo.findOneBy({ id });
+        env.name = input.name;
+        env.description = input.description;
+        env.orderIndex = input.orderIndex;
+
+        return this.repo.save(env);
     }
 }

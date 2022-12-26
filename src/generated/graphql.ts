@@ -46,17 +46,31 @@ export type Environment = {
   rules?: Maybe<Array<Rule>>;
 };
 
+export type EnvironmentInput = {
+  description: Scalars['String'];
+  id?: InputMaybe<Scalars['ID']>;
+  name: Scalars['String'];
+  orderIndex: Scalars['Int'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   application?: Maybe<Application>;
+  environment?: Maybe<Environment>;
   rule?: Maybe<Rule>;
   ruleKey?: Maybe<RuleKey>;
   status?: Maybe<Status>;
+  version?: Maybe<Version>;
 };
 
 
 export type MutationApplicationArgs = {
   application?: InputMaybe<ApplicationInput>;
+};
+
+
+export type MutationEnvironmentArgs = {
+  environment?: InputMaybe<EnvironmentInput>;
 };
 
 
@@ -67,6 +81,11 @@ export type MutationRuleArgs = {
 
 export type MutationRuleKeyArgs = {
   ruleKey?: InputMaybe<RuleKeyInput>;
+};
+
+
+export type MutationVersionArgs = {
+  version?: InputMaybe<VersionInput>;
 };
 
 export type Query = {
@@ -246,6 +265,7 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Deploy: ResolverTypeWrapper<Deploy>;
   Environment: ResolverTypeWrapper<Environment>;
+  EnvironmentInput: EnvironmentInput;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -267,6 +287,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   Deploy: Deploy;
   Environment: Environment;
+  EnvironmentInput: EnvironmentInput;
   ID: Scalars['ID'];
   Int: Scalars['Int'];
   Mutation: {};
@@ -310,9 +331,11 @@ export type EnvironmentResolvers<ContextType = any, ParentType extends Resolvers
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   application?: Resolver<Maybe<ResolversTypes['Application']>, ParentType, ContextType, Partial<MutationApplicationArgs>>;
+  environment?: Resolver<Maybe<ResolversTypes['Environment']>, ParentType, ContextType, Partial<MutationEnvironmentArgs>>;
   rule?: Resolver<Maybe<ResolversTypes['Rule']>, ParentType, ContextType, Partial<MutationRuleArgs>>;
   ruleKey?: Resolver<Maybe<ResolversTypes['RuleKey']>, ParentType, ContextType, Partial<MutationRuleKeyArgs>>;
   status?: Resolver<Maybe<ResolversTypes['Status']>, ParentType, ContextType>;
+  version?: Resolver<Maybe<ResolversTypes['Version']>, ParentType, ContextType, Partial<MutationVersionArgs>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {

@@ -1,3 +1,9 @@
+input EnvironmentInput {
+    id: ID
+    name: String!
+    description: String!
+    orderIndex: Int!
+}
 
 type Environment {
     id: ID!
