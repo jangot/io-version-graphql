@@ -5,6 +5,7 @@ input DeployInput {
 
 type Deploy {
     id: ID!
+    createdAt: Date!
     versionId: String!
     version: Version
     environmentId: String!

@@ -19,14 +19,20 @@ export class DeployService {
         });
         this.loaderByEnviromentId = new DataLoader(async(keys: Array<string>) => {
             const deploys = await this.repo.find({
-                where: { environmentId: In(keys) }
+                where: { environmentId: In(keys) },
+                order: {
+                    createdAt: 'DESC'
+                }
             });
 
             return keys.map((key) => deploys.filter((deploy) => deploy.environmentId == key));
         });
         this.loaderByVersionId = new DataLoader(async(keys: Array<string>) => {
             const deploys = await this.repo.find({
-                where: { versionId: In(keys) }
+                where: { versionId: In(keys) },
+                order: {
+                    createdAt: 'DESC'
+                }
             });
 
             return keys.map((key) => deploys.filter((deploy) => deploy.versionId == key));
@@ -34,7 +40,11 @@ export class DeployService {
     }
 
     findList(): Promise<DeployEntitie[]> {
-        return this.repo.find({});
+        return this.repo.find({
+            order: {
+                createdAt: 'DESC'
+            }
+        });
     }
 
     create(input: DeployInput): Promise<DeployEntitie> {

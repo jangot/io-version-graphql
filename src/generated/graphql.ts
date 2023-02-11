@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -11,6 +11,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Date: any;
 };
 
 export type Application = {
@@ -29,16 +30,17 @@ export type ApplicationInput = {
 
 export type Deploy = {
   __typename?: 'Deploy';
+  createdAt: Scalars['Date'];
   environment?: Maybe<Environment>;
-  environmentId?: Maybe<Scalars['String']>;
+  environmentId: Scalars['String'];
   id: Scalars['ID'];
   version?: Maybe<Version>;
-  versionId?: Maybe<Scalars['String']>;
+  versionId: Scalars['String'];
 };
 
 export type DeployInput = {
-  environmentId?: InputMaybe<Scalars['String']>;
-  versionId?: InputMaybe<Scalars['String']>;
+  environmentId: Scalars['String'];
+  versionId: Scalars['String'];
 };
 
 export type Environment = {
@@ -76,7 +78,7 @@ export type MutationApplicationArgs = {
 
 
 export type MutationDeployArgs = {
-  deployInput?: InputMaybe<DeployInput>;
+  deploy?: InputMaybe<DeployInput>;
 };
 
 
@@ -274,6 +276,7 @@ export type ResolversTypes = {
   Application: ResolverTypeWrapper<Application>;
   ApplicationInput: ApplicationInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Date: ResolverTypeWrapper<Scalars['Date']>;
   Deploy: ResolverTypeWrapper<Deploy>;
   DeployInput: DeployInput;
   Environment: ResolverTypeWrapper<Environment>;
@@ -297,6 +300,7 @@ export type ResolversParentTypes = {
   Application: Application;
   ApplicationInput: ApplicationInput;
   Boolean: Scalars['Boolean'];
+  Date: Scalars['Date'];
   Deploy: Deploy;
   DeployInput: DeployInput;
   Environment: Environment;
@@ -323,12 +327,17 @@ export type ApplicationResolvers<ContextType = any, ParentType extends Resolvers
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
+  name: 'Date';
+}
+
 export type DeployResolvers<ContextType = any, ParentType extends ResolversParentTypes['Deploy'] = ResolversParentTypes['Deploy']> = {
+  createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   environment?: Resolver<Maybe<ResolversTypes['Environment']>, ParentType, ContextType>;
-  environmentId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  environmentId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   version?: Resolver<Maybe<ResolversTypes['Version']>, ParentType, ContextType>;
-  versionId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  versionId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -397,6 +406,7 @@ export type VersionResolvers<ContextType = any, ParentType extends ResolversPare
 
 export type Resolvers<ContextType = any> = {
   Application?: ApplicationResolvers<ContextType>;
+  Date?: GraphQLScalarType;
   Deploy?: DeployResolvers<ContextType>;
   Environment?: EnvironmentResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
