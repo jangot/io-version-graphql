@@ -1,4 +1,4 @@
-import { Server } from '../server';
+import { ServerContext } from '../server';
 import { ApplicationService } from './ApplicationService';
 import { DeployService } from './DeployService';
 import { EnvironmentService } from './EnvironmentService';
@@ -14,7 +14,7 @@ export class Services {
     rule: RuleService;
     deploy: DeployService;
 
-    constructor(private server: Server) {
+    constructor(private server: ServerContext) {
         this.application = new ApplicationService(this.server.db);
         this.version = new VersionService(this.server.db);
         this.ruleKey = new RuleKeyService(this.server.db);

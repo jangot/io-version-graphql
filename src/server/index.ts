@@ -8,7 +8,7 @@ const config: AppConfig =  {
     port: 5555
 }
 
-export class Server {
+export class ServerContext {
     logger: Logger;
     db: DataSource;
 
@@ -34,4 +34,4 @@ export class Server {
     }
 }
 
-export default new Server();
+export const serverContext = new ServerContext();
