@@ -41,6 +41,8 @@ import { getApiRouter } from './api';
 
     await apollo.start();
 
+    const services = new Services(serverContext)
+
     app.use(
         '/graphql',
         cors<cors.CorsRequest>(),
@@ -50,14 +52,14 @@ import { getApiRouter } from './api';
                 return {
                     ...ctx,
                     server: serverContext,
-                    services: new Services(serverContext),
+                    services,
                     resId: '12w-12w',
                 }
             },
         }),
     );
 
-    app.use('/api', getApiRouter(serverContext));
+    app.use('/api', getApiRouter({ serverContext, services }));
 
     await new Promise<void>((resolve) => httpServer.listen({ port: serverContext.config.port }, resolve));
 
